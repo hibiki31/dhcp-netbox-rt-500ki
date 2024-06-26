@@ -24,12 +24,17 @@ def main_roop():
     # DHCPでリースしたIPをPUTすることで、上書きする
     for dhcp_ip in dhcp_list:
         exist_ip = search_dict_in_list(netbox_address["results"], "address", dhcp_ip["ip"])
+        
+        try:
+            vender_name = f" ({dhcp_ip['vender'][0]})"
+        except:
+            vender_name = ""
 
         post_json = {
             "address": dhcp_ip["ip"],
             "status": "dhcp",
             "vrf": 1,
-            "description": f"{dhcp_ip['mac']} ({dhcp_ip['vender'][0]})"
+            "description": f"{dhcp_ip['mac']}{vender_name}"
         }
 
         if exist_ip == []:
