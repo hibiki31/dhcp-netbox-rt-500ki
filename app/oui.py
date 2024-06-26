@@ -3,6 +3,16 @@ from datetime import datetime
 import os
 
 def get_oui_dict():
+    """
+    OUI（Organizationally Unique Identifier）の辞書を取得する関数。
+
+    この関数はIEEEのOUI標準データをダウンロードし、ローカルファイルに保存します。
+    ローカルファイルが既に存在する場合は再ダウンロードを行わず、既存のファイルを使用します。
+    ファイルからデータを読み取り、MACアドレスをキーとして関連情報を含む辞書を作成します。
+
+    戻り値:
+    dict: OUIデータを含む辞書。キーはMACアドレスで、値は関連企業情報のリスト。
+    """
     date_flag = datetime.now().strftime("%Y%m%d")
     dui_file = f"./oui.{date_flag}.txt"
 

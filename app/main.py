@@ -2,8 +2,20 @@ import httpx
 from settings import sts
 from netbox import list_ips_in_range
 from scraper import scrap_dhcp
+from log import setup_logger
+from time import sleep
+
+logger = setup_logger(__name__)
 
 def main():
+    while True:
+        logger.info("Start def")
+        main_roop()
+        logger.info(f"End def. sleep {sts.wait_seconds}s")
+        sleep(sts.wait_seconds)
+
+
+def main_roop():
     dhcp_list = scrap_dhcp()
     netbox_address = list_ips_in_range()
 
@@ -34,7 +46,7 @@ def main():
 
         res = httpx.delete(url=f"{sts.netbox_url}/api/ipam/ip-addresses/{netbox_ip['id']}",headers=nh)
 
-    print(dhcp_list)
+    logger.debug(dhcp_list)
 
 def search_dict_in_list(dict_list, key, value):
     """

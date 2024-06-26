@@ -4,6 +4,17 @@ from oui import get_oui_dict
 from settings import sts
 
 def scrap_dhcp():
+    """
+    DHCPサーバーからリース情報をスクレイピングする関数。
+
+    この関数はDHCPサーバーのウェブページからリース情報を取得し、MACアドレス
+    のOUIを基にベンダー情報を追加します。リース情報は辞書のリストとして
+    返されます。
+
+    戻り値:
+    list: リース情報を含む辞書のリスト。各辞書にはIPアドレス、MACアドレス、
+          リリース時間、ベンダー情報が含まれます。
+    """
     oui_dict = get_oui_dict()
 
     auth = httpx.BasicAuth(
